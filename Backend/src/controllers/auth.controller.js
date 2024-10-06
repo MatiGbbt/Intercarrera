@@ -3,11 +3,14 @@ import Bcrypt from 'bcryptjs'
 import {CreateAccessToken} from '../middlewares/jwt.js'
 
 export const register = async (req, res) => {
-    
     const {username, password, email} = req.body
 
-    try {
+    // Verificamos los campos requeridos
+    if (!username || !password || !email) {
+        return res.status(400).json({ message: "Faltan campos requeridos." });
+    }
 
+    try {
         //crea un hash con el password
         const passwordHash = await Bcrypt.hash(password, 10)
 
@@ -25,7 +28,8 @@ export const register = async (req, res) => {
         const token = await CreateAccessToken({id: savedUser._id})
 
         //res
-        res.cookie('token', token)//token por cookie
+        res.cookie('token', token, {httpOnly: true});//token por cookie
+        // agregamos httpOnly para la seguridad de la cookie (no acceden desde el navegador)
         res.json({ //datos especificos que retonar el json
             id: savedUser._id,
             username: savedUser.username,
@@ -33,12 +37,8 @@ export const register = async (req, res) => {
             createdAt: savedUser.createdAt,
             updatedAt: savedUser.updatedAt
         })
-        //
-
     } catch (error) {
-
         res.status(500).json({message: error.message})
-
     }
 }
 

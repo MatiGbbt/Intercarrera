@@ -2,7 +2,6 @@ import Environmental from '../models/environmental.model.js'
 import Pet from '../models/pet.model.js'
 
 export const state = async (req, res) => {
-
     try {
 
         //const environmentalData = await Environmental.findOne().sort({ _id: -1 }); // Trae el último registro
@@ -59,7 +58,10 @@ export const state = async (req, res) => {
         const newState = new Pet(result)
         await newState.save()
 
-        res.status(200).json(result)
+        res.status(200).json({
+            message: "Estado de la mascota actualizado.",
+            state: result
+        });
 
     } catch (error) {
 
