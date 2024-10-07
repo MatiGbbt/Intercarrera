@@ -3,6 +3,7 @@ import axios from 'axios';
 const API_URL = 'http://localhost:4000/api'; // Cambia esto según tu configuración
 axios.defaults.withCredentials = true;
 
+//** ENDPOINTS DEL USER */
 // Registrar
 export const registerUser = async (userData) => {
     return await axios.post(`${API_URL}/register`, userData);
@@ -18,10 +19,17 @@ export const getProfile = async () => {
     return await axios.get(`${API_URL}/profile`, { withCredentials: true });
 };
 
+// Cerrar Sesión
+export const logout = async () => {
+    return await axios.post(`${API_URL}/logout`, {}, { withCredentials: true });
+};
+
+//** ENDPOINTS DE LA MASCOTA */
 // Obtener estado de la mascota
 export const getPetState = async () => {
     try {
         const response = await axios.get(`${API_URL}/state`);
+        console.log('Respuesta del api:', response.data);
         return response.data;
     } catch (error) {
         console.error("Error fetching pet state:", error);

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getPetState, feedPet, sleepPet, healPet, revivePet } from '../services/api';
+import { getPetState, feedPet, sleepPet, healPet, revivePet, getProfile, logout } from '../services/api';
 import { Navbar, Nav, Button, Container, Row, Col } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -8,14 +8,15 @@ const Pet = () => {
     const [petState, setPetState] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [username, setUsername] = useState('');
     const navigate = useNavigate();
     
     useEffect(() => {
         const fetchPetData = async () => {
             try {
                 const response = await getPetState();
-                console.log("Respuesta del estado de la mascota:", response.data);
-                setPetState(response.data); // Esto debería contener el estado de la mascota
+                //console.log("Respuesta del estado de la mascota:", response);
+                setPetState(response); // Esto debería contener el estado de la mascota
             } catch (error) {
                 if (error.response && error.response.status === 401) {
                     toast.error('Sesión expirada, por favor inicia sesión de nuevo.');
@@ -29,8 +30,39 @@ const Pet = () => {
             }
         };
 
+        const fetchUserProfile = async () => {
+            try {
+                const profileResponse = await getProfile();
+                console.log("Respuesta del perfil:", profileResponse);
+                setUsername(profileResponse.data.username);
+            } catch (error) {
+                if (error.response && error.response.status === 401) {
+                    toast.error('Sesión expirada, por favor inicia sesión de nuevo.');
+                    navigate('/login');
+                } else {
+                    console.error("Error fetching user profile:", error);
+                    setError('Error al obtener el usuario.');
+                }
+            }
+        };
+
         fetchPetData();
+        fetchUserProfile();
     }, [navigate]);
+
+    // Función para manejar el cierre de sesión
+    const handleLogout = async () => {
+        try {
+            await logout(); // Llama al servicio logout
+            toast.success('Sesión cerrada correctamente', {autoClose: 2000});
+            setTimeout(() => {
+                navigate('/login'); // Redirige después de 2 segundos
+            }, 2700);
+        } catch (error) {
+            toast.error('Hubo un error al cerrar la sesión');
+            console.error("Error during logout:", error);
+        }
+    };
 
     const handleFeed = async () => {
         await feedPet();
@@ -55,7 +87,7 @@ const Pet = () => {
     const refreshPetState = async () => {
         try {
             const response = await getPetState();
-            setPetState(response.data);
+            setPetState(response);
         } catch (error) {
             console.error("Error fetching pet state after action:", error);
             setError('Error al actualizar el estado de la mascota.');
@@ -81,9 +113,9 @@ const Pet = () => {
 
                     <Nav className='ml-auto'>
                         <Navbar.Text>
-                            {/* Username */}
+                            {username && `Bienvenido, ${username}`}
                         </Navbar.Text>
-                        <Button variant='outline-danger' className='ms-2'>
+                        <Button onClick={handleLogout} variant='outline-danger' className='ms-2'>
                             Cerrar Sesión
                         </Button>
                     </Nav>
@@ -92,10 +124,10 @@ const Pet = () => {
 
             <Container className='text-center mt-4'>
                 <h1>Estado de Sensory</h1>
-                <p>Hambre: {petState.hambre}</p>
-                <p>Sueño: {petState.sueño}</p>
-                <p>Salud: {petState.salud}</p>
-                <p>Está vivo?: {petState.vivo ? "Sí" : "No"}</p>
+                <p>Hambre: {petState.state.hambre}</p>
+                <p>Salud: {petState.state.salud}</p>
+                <p>Sueño: {petState.state.sueño}</p>
+                <p>Está vivo?: {petState.state.vivo ? "Sí" : "No"}</p>
 
                 <Row className='mt-4'>
                     <Col>
