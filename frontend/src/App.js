@@ -1,16 +1,17 @@
 import './App.css';
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, Link } from 'react-router-dom';
 import Register from './pages/Register';
 import Login from './pages/Login';
 import Pet from './pages/Pet';
 import PetActions from './pages/PetActions';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
-    <Router>
+    <BrowserRouter>
       <nav>
         <Link to="/register">Registro</Link>
         <Link to="/login">Logeo</Link>
@@ -18,13 +19,13 @@ function App() {
         <Link to="/pet-actions">Pet Actions</Link>
       </nav>
       <Routes>
-        <Route path='/register' component={Register}/>
-        <Route path='/login' component={Login}/>
-        <Route path='/pet' component={Pet}/>
-        <Route path="/pet-actions" component={PetActions} />
+        <Route path='/register' element={<Register />}/>
+        <Route path='/login' element={<Login />}/>
+        <Route path='/pet' element={<Pet />}/>
+        <Route path="/pet-actions" element={<PetActions />} />
       </Routes>
       <ToastContainer />
-    </Router>
+    </BrowserRouter>
   );
 }
 
