@@ -19,11 +19,17 @@ const app = express()
 //settings
 app.set("port", config.port)
 
+// Configurar CORS para permitir solicitudes del frontend
+const corsOptions = {
+    origin: 'http://localhost:3000', // Cambia esto por la URL de tu frontend
+    credentials: true, // Permitir cookies y credenciales
+};
+
 //middlewares
 app.use(morgan('dev'))
 app.use(express.json())
 app.use(cookieParser())
-app.use(cors())
+app.use(cors(corsOptions))
 //
 
 app.use('/api',authRoutes)

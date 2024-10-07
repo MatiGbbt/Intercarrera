@@ -1,6 +1,6 @@
 import './App.css';
 import React from 'react';
-import { BrowserRouter, Route, Routes, Link } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, Link, Navigate } from 'react-router-dom';
 import Register from './pages/Register';
 import Login from './pages/Login';
 import Pet from './pages/Pet';
@@ -19,6 +19,7 @@ function App() {
         <Link to="/pet-actions">Pet Actions</Link>
       </nav>
       <Routes>
+      <Route path='/' element={<Navigate to="/login" />}/>
         <Route path='/register' element={<Register />}/>
         <Route path='/login' element={<Login />}/>
         <Route path='/pet' element={<Pet />}/>

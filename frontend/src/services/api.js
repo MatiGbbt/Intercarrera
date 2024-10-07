@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 const API_URL = 'http://localhost:4000/api'; // Cambia esto según tu configuración
+axios.defaults.withCredentials = true;
 
 // Registrar
 export const registerUser = async (userData) => {
@@ -17,32 +18,33 @@ export const getProfile = async () => {
     return await axios.get(`${API_URL}/profile`, { withCredentials: true });
 };
 
-export const getPetData = async () => {
-    const response = await axios.get(`${API_URL}/pets`); // Asegúrate de que la ruta sea correcta
-    return response.data;
-};
-
 // Obtener estado de la mascota
 export const getPetState = async () => {
-    return await axios.get(`${API_URL}/pet/state`, { withCredentials: true });
+    try {
+        const response = await axios.get(`${API_URL}/state`);
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching pet state:", error);
+        throw error;
+    }
 };
 
 // Alimentar mascota
 export const feedPet = async () => {
-    return await axios.post(`${API_URL}/pet/feed`, {}, { withCredentials: true });
+    return await axios.post(`${API_URL}/feed`, {}, { withCredentials: true });
 };
 
 // Dormir mascota
 export const sleepPet = async () => {
-    return await axios.post(`${API_URL}/pet/sleep`, {}, { withCredentials: true });
+    return await axios.post(`${API_URL}/sleep`, {}, { withCredentials: true });
 };
 
 // Curar mascota
 export const healPet = async () => {
-    return await axios.post(`${API_URL}/pet/heal`, {}, { withCredentials: true });
+    return await axios.post(`${API_URL}/heal`, {}, { withCredentials: true });
 };
 
 // Revivir mascota
 export const revivePet = async () => {
-    return await axios.post(`${API_URL}/pet/revive`, {}, { withCredentials: true });
+    return await axios.post(`${API_URL}/revive`, {}, { withCredentials: true });
 };
