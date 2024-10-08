@@ -1,19 +1,22 @@
 import React, { useState } from 'react';
 import { loginUser } from '../services/api';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 //import { useAuth } from '../context/AuthContext';
 import { toast } from 'react-toastify';
-import '../style.css';
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
 
+// Estilos o adornos a la pagina
+import '../style.css';
+import myGif from '../assets/fondoAnimado.gif';
+import logo from '../assets/ojoAbierto.gif';
+import { MdAlternateEmail } from "react-icons/md";
+import { PiPasswordBold } from "react-icons/pi";
+import { AiOutlineSwapRight } from "react-icons/ai";
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [validated, setValidated] = useState(false);
+    const [errors, setErrors] = useState({});
     //const { login } = useAuth();
     const navigate = useNavigate();
 
@@ -21,8 +24,23 @@ const Login = () => {
         const form = e.currentTarget;
         e.preventDefault();
 
+        let formIsValid = true;
+        let validationErrors = {};
+
+        if (!email) {
+            formIsValid = false;
+            validationErrors.email = "Ingresar el correo electrónico es obligatorio.";
+        }
+
+        if (!password) {
+            formIsValid = false;
+            validationErrors.password = "Ingresar una contraseña es obligatorio.";
+        }
+
+        setErrors(validationErrors);
+
         // verificamos si el formulario es válido
-        if (form.checkValidity() === false) {
+        if (form.checkValidity() === false && formIsValid) {
             e.stopPropagation();
         } else {
             try {
@@ -55,62 +73,69 @@ const Login = () => {
     };
 
     return (
-        <div className='login template d-flex justify-content-center align-items-center vh-100 bg-primary'>
-            <div className='form_container p-5 rounded bg-white'>
-                <Form noValidate validated={validated} onSubmit={handleSubmit}>
-                    <h3 className='text-center'>Iniciar Sesión</h3>
+        <div className='loginPage flex'>
+            <div className='container flex'>
 
-                    <Row className='mb-3'>
-                        <Form.Group as={Col} controlId='validationEmail'>
-                            <Form.Label>Correo Electrónico</Form.Label>
-                            <Form.Control
-                                type='email' 
-                                placeholder='Ingresa tu E-mail' 
-                                className='form-control'
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                                required
-                            />
-                            <Form.Control.Feedback>Perfecto! :D</Form.Control.Feedback>
-                            <Form.Control.Feedback type='invalid'>
-                                Por favor ingresa un e-mail válido.
-                            </Form.Control.Feedback>
-                        </Form.Group>
-                    </Row>
+                <div className='videoDiv'>
+                    <img src={myGif} alt='fondoAnimado'></img>
 
-                    <Row className='mb-3'>
-                        <Form.Group as={Col} controlId='validationEmail'>
-                            <Form.Label>Contraseña</Form.Label>
-                            <Form.Control
-                                type='password' 
-                                placeholder='Ingresa tu contraseña' 
-                                className='form-control'
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                                required
-                            />
-                            <Form.Control.Feedback>Perfecto! :D</Form.Control.Feedback>
-                            <Form.Control.Feedback type='invalid'>
-                                La contraseña es requerida.
-                            </Form.Control.Feedback>
-                        </Form.Group>
-                    </Row>
+                    <div className='footerDiv flex'>
+                        <span className='text'>No tienes una cuenta?</span>
+                        <Link to={'/register'}>
+                            <button className='btn'>Registrarse</button>
+                        </Link>
+                    </div>
+                </div>
 
-                    <div className='d-grid'>
-                        <Button type='submit' className='btn btn-primary'>
-                            Iniciar Sesión
-                        </Button>
+                <div className='formDiv flex'>
+                    <div className='headerDiv'>
+                        <img src={logo} alt='Imagen del Logo'/>
+                        <h3>INICIAR SESION</h3>
                     </div>
 
-                    <p className='text-center mt-2'>
-                       No tienes una cuenta?<a href="/register" className='ms-2'>Registrarse</a>
-                    </p>
-                    
-                </Form>
-            </div>
-        </div>
+                    <form className='form grid' noValidate validated={validated} onSubmit={handleSubmit}>
+                        <span></span>
+                        <div className='inputDiv'>
+                            <label htmlFor='email'>Correo Electrónico</label>
+                            <div className='input flex'>
+                                <MdAlternateEmail className='icon' />
+                                <input 
+                                    type='email'
+                                    placeholder='Ingresa tu e-mail'
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    className={errors.email ? 'inputError' : ''}
+                                    required
+                                />
+                            </div>
+                            {errors.email && <span className='error'>{errors.email}</span>}
+                        </div>
 
-        
+                        <div className='inputDiv'>
+                            <label htmlFor='password'>Contraseña</label>
+                            <div className='input flex'>
+                                <PiPasswordBold  className='icon' />
+                                <input 
+                                    type='password'
+                                    placeholder='Ingresa tu contraseña'
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    className={errors.password ? 'inputError' : ''}
+                                    required
+                                />
+                            </div>
+                            {errors.password && <span className="error">{errors.password}</span>}
+                        </div>
+
+                        <button type='submit' className='btn flex'>
+                            <span>Iniciar Sesión </span>
+                            <AiOutlineSwapRight className='icon'/>
+                        </button>
+
+                    </form>
+                </div>              
+            </div>
+        </div>    
     );
 };
 
