@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 // Estilos o adornos a la pagina
-import '../style.css';
+import '../loginEstilo.css';
 import myGif from '../assets/fondoAnimado.gif';
 import logo from '../assets/ojoAbierto.gif';
 import { MdAlternateEmail } from "react-icons/md";

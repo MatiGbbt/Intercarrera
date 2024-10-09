@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { getPetState, feedPet, sleepPet, healPet, revivePet, getProfile, logout } from '../services/api';
-import { Navbar, Nav, Button, Container, Row, Col } from 'react-bootstrap';
+import { Navbar, Nav } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+
+import logo from '../assets/ojoAbierto.gif';
+import myGif from '../assets/fondoAnimado.gif';
+import petGif from '../assets/casual-movimiento.gif';
+import '../style/petEstilo.css';
 
 const Pet = () => {
     const [petState, setPetState] = useState(null);
@@ -103,47 +108,53 @@ const Pet = () => {
 
     return (
         <div>
-            <Navbar bg='light' expand='lg'>
-                <Container>
-                    <Navbar.Brand>Virtual Sensory</Navbar.Brand>
-                    <Nav className='me-auto'>
-                        <Nav.Link href='/pet'>Sensory</Nav.Link>
-                        <Nav.Link href='/stats'>Estadísticas</Nav.Link>
+            <Navbar expand='xl' className='navbar-custom'>
+                <img className='icon-nav' src={logo} alt='Imagen del Logo'/>
+                <Navbar.Brand>
+                    Virtual Sensory
+                </Navbar.Brand>
+                <Navbar.Toggle aria-controls="navbarScroll" />
+                <Navbar.Collapse id='navbarScroll'>
+                    <Nav className='me-auto my-2 my-lg-0' navbarScroll>
+                        <Nav.Link className='btn-nav' href='/pet'>Sensory</Nav.Link>
+                        <Nav.Link className='btn-nav' href='/stats'>Estadísticas</Nav.Link>
                     </Nav>
 
-                    <Nav className='ml-auto'>
-                        <Navbar.Text>
-                            {username && `Bienvenido, ${username}`}
-                        </Navbar.Text>
-                        <Button onClick={handleLogout} variant='outline-danger' className='ms-2'>
+                    <Nav className='d-flex'>
+                        <label className='me-2'>{username && `Bienvenido, ${username}`}</label>
+                        <button onClick={handleLogout} className='btn-custom'>
                             Cerrar Sesión
-                        </Button>
+                        </button>
                     </Nav>
-                </Container>
+                </Navbar.Collapse>    
             </Navbar>
 
-            <Container className='text-center mt-4'>
-                <h1>Estado de Sensory</h1>
-                <p>Hambre: {petState.state.hambre}</p>
-                <p>Salud: {petState.state.salud}</p>
-                <p>Sueño: {petState.state.sueño}</p>
-                <p>Está vivo?: {petState.state.vivo ? "Sí" : "No"}</p>
+            <div className='loginPage flex'>
+                <div className='container flex'>
+                    <div className='videoDiv'>
+                        <img className='background-gif' src={myGif} alt='fondoAnimado'></img>
 
-                <Row className='mt-4'>
-                    <Col>
-                        <Button onClick={handleFeed} variant="success" className="w-100">Alimentar</Button>
-                    </Col>
-                    <Col>
-                        <Button onClick={handleSleep} variant="secondary" className="w-100">Dormir</Button>
-                    </Col>
-                    <Col>
-                        <Button onClick={handleHeal} variant="info" className="w-100">Curar</Button>
-                    </Col>
-                    <Col>
-                        <Button onClick={handleRevive} variant="warning" className="w-100">Revivir</Button>
-                    </Col>
-                </Row>
-            </Container>
+                        <div className="pet-container">
+                            <img className="pet-gif" src={petGif} alt="Pet GIF" />
+                        </div>
+
+                        <div className='footerDiv flex'>
+                            <button className='btn' onClick={handleFeed}>Alimentar</button>
+                            <button className='btn' onClick={handleSleep}>Dormir</button>
+                            <button className='btn' onClick={handleHeal}>Curar</button>
+                            <button className='btn' onClick={handleRevive}>Revivir</button>
+                        </div>
+                    </div>
+
+                    <div className='formDiv flex'>
+                        <h1>Estado de Sensory</h1>
+                        <p>Hambre: {petState.state.hambre}</p>
+                        <p>Salud: {petState.state.salud}</p>
+                        <p>Sueño: {petState.state.sueño}</p>
+                        <p>Está vivo?: {petState.state.vivo ? "Sí" : "No"}</p>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 };

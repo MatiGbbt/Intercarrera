@@ -93,7 +93,6 @@ img {
     margin-top: 4px;
 }
 
-
 /* Estilo de pagina */
 .loginPage{
     height: 100vh;
@@ -194,11 +193,10 @@ img {
             margin: auto;
             flex-direction: column;
             gap: 1.5rem;
-            transform: translate(-1rem);
 
             .headerDiv{
                 text-align: center;
-                padding: 1.5rem o;
+                padding: 1.5rem 0;
 
                 img{
                     width: 350px;

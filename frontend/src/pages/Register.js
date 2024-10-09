@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { registerUser } from '../services/api';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import '../style.css';
+import '../loginEstilo.css';
 import myGif from '../assets/fondoAnimado.gif';
 import logo from '../assets/ojoAbierto.gif';
 import { MdAlternateEmail } from "react-icons/md";
