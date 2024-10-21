@@ -4,27 +4,21 @@ import Pet from '../models/pet.model.js'
 export const state = async (req, res) => {
     try {
 
-        //const environmentalData = await Environmental.findOne().sort({ _id: -1 }); // Trae el último registro
+        const DatosAmbientales = await Environmental.findOne().sort({ _id: -1 })
 
-        //if (!environmentalData) {
-            //return res.status(404).json({ message: "No se encontraron datos ambientales." })
-        //}
-
-        const environmentalData = {
-            temperature: 20,
-            humidity: 50,
-            light: 15
+        if (!DatosAmbientales) {
+            return res.status(404).json({ message: "No se encontraron datos ambientales." })
         }
 
-        const { temperature, humidity, light } = environmentalData
+        const { temperatura, humedad, luz } = DatosAmbientales
 
         let hambre, sueño, salud, vivo
 
         //LOGICA SUEÑO Y HAMBRE
-        if (light <= 10) {
+        if (luz <= 10) {
             sueño = 'alto'
             hambre = 'alto'
-        } else if (light > 10 && light <= 20) {
+        } else if (luz > 10 && luz <= 20) {
             sueño = 'medio'
             hambre = 'medio'
         } else {
@@ -33,16 +27,16 @@ export const state = async (req, res) => {
         }
 
         //LOGICA SALUD
-        if (humidity <= 30 || temperature <= 15) {
+        if (humedad <= 30 || temperatura <= 15) {
             salud = 'alto'
-        } else if (humidity > 30 && humidity <= 70 || temperature > 15 && temperature <= 25) {
+        } else if (humedad > 30 && humedad <= 70 || temperatura > 15 && temperatura <= 25) {
             salud = 'medio'
-        } else if (humidity > 70 && humidity <= 100 || temperature > 25 && temperature <= 50) {
+        } else if (humedad > 70 && humedad <= 100 || temperatura > 25 && temperatura <= 50) {
             salud = 'bajo'
         }
 
         // Determinar si está vivo basado en la salud
-        if (humidity > 100 || temperature > 50) {
+        if (humedad > 100 || temperatura > 50) {
             vivo = false
         }else {
             vivo = true
@@ -53,7 +47,7 @@ export const state = async (req, res) => {
             sueño,
             salud,
             vivo
-        };
+        }
 
         const newState = new Pet(result)
         await newState.save()
@@ -61,7 +55,7 @@ export const state = async (req, res) => {
         res.status(200).json({
             message: "Estado de la mascota actualizado.",
             state: result
-        });
+        })
 
     } catch (error) {
 

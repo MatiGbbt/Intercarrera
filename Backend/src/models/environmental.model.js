@@ -1,17 +1,17 @@
 import mongoose from 'mongoose'
 
 const environmentalSchema = new mongoose.Schema({
-    temperature: {
+    temperatura: {
         type: Number,
         required: true,
         trim: true
     },
-    humidity: {
+    humedad: {
         type: Number,
         required: true,
         trim: true
     },
-    light: {
+    luz: {
         type: Number,
         required: true,
         trim: true

@@ -12,19 +12,19 @@ import authRoutes from './routes/auth.routes.js'
 import petRoutes from './routes/pet.routes.js'
 
 //importa la función MQTT
-//import { initializeMqtt } from './mqtt.js';
+import { initializeMqtt } from './mqtt.js'
+
+//importa el server de WebSocket para obtener la data del ambiente
+import { initializeWebSocket } from './websocket.js'
 
 const app = express()
 
 //settings
 app.set("port", config.port)
 
-// Configurar CORS para permitir solicitudes del frontend
 const corsOptions = {
-    origin: 'http://localhost:3000', // Cambia esto por la URL de tu frontend
-
-    // rocio aca tengo un problema, se tiene que ir al 4000 pero me da error 
-    credentials: true, // Permitir cookies y credenciales
+    origin: 'http://localhost:3000', // (aca va la url del front si falla por cors)
+    credentials: true,
 };
 
 //middlewares
@@ -37,6 +37,7 @@ app.use(cors(corsOptions))
 app.use('/api',authRoutes)
 app.use('/api',petRoutes)
 
-//initializeMqtt()
+initializeMqtt()
+initializeWebSocket()
 
 export default app
