@@ -20,7 +20,7 @@ const Pet = () => {
         const fetchPetData = async () => {
             try {
                 const response = await getPetState();
-                //console.log("Respuesta del estado de la mascota:", response);
+                console.log("Respuesta del estado de la mascota:", response);
                 setPetState(response); // Esto debería contener el estado de la mascota
             } catch (error) {
                 if (error.response && error.response.status === 401) {
@@ -69,6 +69,7 @@ const Pet = () => {
         }
     };
 
+    
     const convertToPercentage = (value) => {
         switch (value) {
             case 'alto':
@@ -82,6 +83,8 @@ const Pet = () => {
         }
     };
 
+
+    console.log(petState);
     const hambrePercentage = convertToPercentage(petState.state.hambre);
     const saludPercentage = convertToPercentage(petState.state.salud);
     const sueñoPercentage = convertToPercentage(petState.state.sueño);
@@ -185,8 +188,6 @@ const Pet = () => {
                             </div>
                         </div>
                         <p>Sueño: {petState.state.sueño}</p>
-
-
                         <p>Está vivo?: {petState.state.vivo ? "Sí" : "No"}</p>
                     </div>
                 </div>

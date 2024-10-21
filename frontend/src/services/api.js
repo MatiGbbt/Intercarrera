@@ -32,6 +32,7 @@ export const logout = async () => {
 // Obtener estado de la mascota
 export const getPetState = async () => {
     try {
+        console.log('asd');
         const response = await axios.get(`${API_URL}/state`);
         console.log('Respuesta del api:', response.data);
         return response.data;
