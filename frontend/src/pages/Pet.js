@@ -69,6 +69,23 @@ const Pet = () => {
         }
     };
 
+    const convertToPercentage = (value) => {
+        switch (value) {
+            case 'alto':
+                return 100;
+            case 'medio':
+                return 66;
+            case 'bajo':
+                return 33;
+            default:
+                return 0;
+        }
+    };
+
+    const hambrePercentage = convertToPercentage(petState.state.hambre);
+    const saludPercentage = convertToPercentage(petState.state.salud);
+    const sueñoPercentage = convertToPercentage(petState.state.sueño);
+
     const handleFeed = async () => {
         await feedPet();
         await refreshPetState();
@@ -148,9 +165,28 @@ const Pet = () => {
 
                     <div className='formDiv flex'>
                         <h1>Estado de Sensory</h1>
+                        <div className="progress" role="progressbar" aria-label="Hambre" aria-valuenow={hambrePercentage} aria-valuemin="0" aria-valuemax="100" style={{ height: `30px`, width: `350px` }}>
+                            <div className="progress-bar bg-warning text-dark" style={{ width: `${hambrePercentage}%` }}>
+                                {hambrePercentage}%
+                            </div>
+                        </div>
                         <p>Hambre: {petState.state.hambre}</p>
+
+                        <div className="progress" role="progressbar" aria-label="Salud" aria-valuenow={saludPercentage} aria-valuemin="0" aria-valuemax="100" style={{ height: `30px`, width: `350px` }}>
+                            <div className="progress-bar bg-success text-dark" style={{ width: `${saludPercentage}%` }}>
+                                {saludPercentage}%
+                            </div>
+                        </div>
                         <p>Salud: {petState.state.salud}</p>
+
+                        <div className="progress" role="progressbar" aria-label="Sueño" aria-valuenow={sueñoPercentage} aria-valuemin="0" aria-valuemax="100" style={{ height: `30px`, width: `350px` }}>
+                            <div className="progress-bar bg-primary text-dark" style={{ width: `${sueñoPercentage}%` }}>
+                                {sueñoPercentage}%
+                            </div>
+                        </div>
                         <p>Sueño: {petState.state.sueño}</p>
+
+
                         <p>Está vivo?: {petState.state.vivo ? "Sí" : "No"}</p>
                     </div>
                 </div>

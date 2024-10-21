@@ -43,20 +43,20 @@ export const getPetState = async () => {
 
 // Alimentar mascota
 export const feedPet = async () => {
-    return await axios.post(`${API_URL}/feed`, {}, { withCredentials: true });
+    return await axios.get(`${API_URL}/feed`, {}, { withCredentials: true });
 };
 
 // Dormir mascota
 export const sleepPet = async () => {
-    return await axios.post(`${API_URL}/sleep`, {}, { withCredentials: true });
+    return await axios.get(`${API_URL}/sleep`, {}, { withCredentials: true });
 };
 
 // Curar mascota
 export const healPet = async () => {
-    return await axios.post(`${API_URL}/heal`, {}, { withCredentials: true });
+    return await axios.get(`${API_URL}/heal`, {}, { withCredentials: true });
 };
 
 // Revivir mascota
 export const revivePet = async () => {
-    return await axios.post(`${API_URL}/revive`, {}, { withCredentials: true });
+    return await axios.get(`${API_URL}/revive`, {}, { withCredentials: true });
 };
