@@ -22,6 +22,8 @@ app.set("port", config.port)
 // Configurar CORS para permitir solicitudes del frontend
 const corsOptions = {
     origin: 'http://localhost:3000', // Cambia esto por la URL de tu frontend
+
+    // rocio aca tengo un problema, se tiene que ir al 4000 pero me da error 
     credentials: true, // Permitir cookies y credenciales
 };
 

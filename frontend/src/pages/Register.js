@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import '../loginEstilo.css';
 import myGif from '../assets/fondoAnimado.gif';
-import logo from '../assets/ojoAbierto.gif';
+import logo from '../assets/casual-movimiento.gif';
 import { MdAlternateEmail } from "react-icons/md";
 import { PiPasswordBold } from "react-icons/pi";
 import { AiOutlineSwapRight } from "react-icons/ai";

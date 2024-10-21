@@ -4,7 +4,7 @@ import { Navbar, Nav } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-import logo from '../assets/ojoAbierto.gif';
+import logo from '../assets/casual-movimiento.gif';
 import myGif from '../assets/fondoAnimado.gif';
 import petGif from '../assets/casual-movimiento.gif';
 import '../style/petEstilo.css';

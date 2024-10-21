@@ -28,47 +28,6 @@ li{
     box-shadow: 0 7px 50px rgb(223, 213, 221);
 }
 
-/* Custom Button */
-.btn-custom{
-    padding: .8rem;
-    background: var(--primaryColor);
-    border-radius: 10px;
-    color: var(--whiteColor);
-    margin: auto;
-    font-size: 14px;
-    width: 100%;
-    transition: .3s ease;
-    overflow: hidden;
-}
-
-.btn-custom:hover{
-    background: var(--hoverColor);
-    color: var(--blackColor);
-}
-
-/* Background Gif*/
-.background-gif {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-    object-fit: cover;
-}
-
-/* Pet Gif */
-.pet-container .pet-gif {
-    position: absolute;
-    bottom: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 50px;
-    height: auto;
-    z-index: 2;
-    image-rendering: crisp-edges;
-    animation: float 3s ease-in-out infinite;
-}
 
 /* Footer with buttons */
 .footerDiv {
@@ -95,46 +54,6 @@ li{
     }
 }
 
-/* Page Layout */
-.loginPage {
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-}
-
-.container {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: space-between;
-    border-radius: 10px;
-    background: hsl(0, 0%, 91%);
-}
-
-.videoDiv {
-    position: relative;
-    flex-basis: 50%;
-    height: 100%;
-    width: 100%;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-}
-
-.formDiv {
-    flex-basis: 50%;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 1.5rem;
-    text-align: center;
-}
 
 /* Additional Styling */
 .icon {
@@ -142,7 +61,7 @@ li{
 }
 
 .icon-nav{
-    width: 250px;
+    width: 80px;
 }
 
 .btn-nav {
@@ -162,3 +81,22 @@ li{
 h1, p {
     color: var(--blackColor);
 }
+/* Estilos para el botón de cerrar sesión */
+.btn-custom {
+    margin-left: 10px; /* Ajusta este valor según sea necesario */
+    border: none;
+    outline: none;
+    cursor: pointer;
+    border-radius: 8px;
+    padding: .8rem 1rem;
+    color: var(--whiteColor);
+    background: var(--primaryColor);
+    font-size: 16px;
+    transition: .3s ease;
+}
+
+.btn-custom:hover {
+    background: var(--hoverColor); /* Color al pasar el mouse */
+    color: var(--blackColor); /* Color de texto al pasar el mouse */
+}
+

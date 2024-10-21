@@ -1,5 +1,9 @@
 import axios from 'axios';
 
+// ROCIO / MATI : ACA NO LA PUDE SOLUCIONAR LOS PUERTOS NO VAN AL MISMO NUMERO
+//INTENTE DE VARIAS FORMAS Y LA UNICA QUE ME TIRA FACTIBLE INTERNET ES CON PROXY
+//NO CREO QUE ESO SEA ASI
+
 const API_URL = 'http://localhost:4000/api'; // Cambia esto según tu configuración
 axios.defaults.withCredentials = true;
 
