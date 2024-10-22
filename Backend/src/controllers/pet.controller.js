@@ -151,3 +151,21 @@ export const revive = async (req, res) => { //REVIVIR MASCOTA
     }
 }
 
+
+export const getAllEnvironmentals = async (req, res) => {
+    try {
+        const environmentals = await Environmental.find({});
+        res.status(200).json(environmentals);
+    } catch (error) {
+        res.status(500).json({ message: 'Error al obtener los registros de environmental', error });
+    }
+};
+
+export const getAllPets = async (req, res) => {
+    try {
+        const pets = await Pet.find({});
+        res.status(200).json(pets);
+    } catch (error) {
+        res.status(500).json({ message: 'Error al obtener los registros de pet', error });
+    }
+};
