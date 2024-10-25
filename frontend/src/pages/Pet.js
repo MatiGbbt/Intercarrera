@@ -7,6 +7,12 @@ import { toast } from 'react-toastify';
 import logo from '../assets/casual-movimiento.gif';
 import myGif from '../assets/fondoAnimado.gif';
 import petGif from '../assets/casual-movimiento.gif';
+
+import petHungry from '../assets/enojado-movimiento.gif';
+import petSick from '../assets/bolita_llorando.gif'; 
+import petDead from '../assets/estatico-muerto.gif';
+import petSleepy from '../assets/caluroso-movimiento.gif';
+
 import '../style/petEstilo.css';
 
 const Pet = () => {
@@ -69,6 +75,16 @@ const Pet = () => {
         }
     };
 
+
+    const petImageChange = () => {
+
+        if (!petState.state.vivo) return petDead; // Si la mascota está muerta, muestra la imagen de la mascota muerta.
+        if (petState.state.hambre === "alto") return petHungry; // Si tiene mucha hambre, muestra la imagen de mascota hambrienta.
+        if (petState.state.salud === "bajo") return petSick; // Si la salud es baja, muestra la imagen de mascota enferma.
+        if (petState.state.sueño === "alto") return petSleepy;
+
+        return petGif; // Si no se cumplen las condiciones anteriores, muestra la mascota feliz.
+    };
 
     const handleFeed = async () => {
         await feedPet();
@@ -136,7 +152,7 @@ const Pet = () => {
                         <img className='background-gif' src={myGif} alt='fondoAnimado'></img>
 
                         <div className="pet-container">
-                            <img className="pet-gif" src={petGif} alt="Pet GIF" />
+                            <img className="pet-gif" src={petImageChange()} alt="Pet GIF" />
                         </div>
 
                         <div className='footerDiv flex'>
